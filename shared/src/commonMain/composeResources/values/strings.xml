@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="app_name">Goodwines</string>
+    <string name="bootstrap_title">Goodwines is ready</string>
+    <string name="bootstrap_message">The Kotlin Multiplatform skeleton is in place for Android and iOS.</string>
+    <string name="bootstrap_next_step">Next up: define Clean Architecture modules, then wire Koin, Room, and Navigation 3.</string>
+</resources>
