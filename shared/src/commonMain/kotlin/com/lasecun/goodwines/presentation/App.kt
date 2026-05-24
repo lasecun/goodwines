@@ -1,4 +1,6 @@
-package com.lasecun.goodwines
+// Presentation layer — shared Compose UI entry point.
+// presentation → domain (inward dependency only)
+package com.lasecun.goodwines.presentation
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
