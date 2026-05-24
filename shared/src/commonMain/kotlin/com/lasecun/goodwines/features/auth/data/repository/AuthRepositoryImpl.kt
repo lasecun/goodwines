@@ -1,6 +1,7 @@
 package com.lasecun.goodwines.features.auth.data.repository
 
 import com.lasecun.goodwines.core.data.network.getOrNull
+import com.lasecun.goodwines.features.auth.data.source.local.LocalSessionDataSource
 import com.lasecun.goodwines.features.auth.data.source.remote.RemoteAuthDataSource
 import com.lasecun.goodwines.features.auth.data.source.remote.dto.AuthSessionDto
 import com.lasecun.goodwines.features.auth.data.source.remote.dto.RegisterRequestDto
@@ -11,15 +12,17 @@ import com.lasecun.goodwines.features.auth.domain.model.RegisterCredentials
 import com.lasecun.goodwines.features.auth.domain.repository.AuthRepository
 
 class AuthRepositoryImpl(
-    private val remoteDataSource: RemoteAuthDataSource
+    private val remoteDataSource: RemoteAuthDataSource,
+    private val localSession: LocalSessionDataSource
 ) : AuthRepository {
 
     override suspend fun signIn(credentials: AuthCredentials): AuthSession {
         val result = remoteDataSource.signIn(
             SignInRequestDto(email = credentials.email, password = credentials.password)
         )
-        return result.getOrNull()?.toDomain()
-            ?: error("Sign in failed")
+        val session = result.getOrNull()?.toDomain() ?: error("Sign in failed")
+        localSession.saveSession(session)
+        return session
     }
 
     override suspend fun register(credentials: RegisterCredentials): AuthSession {
@@ -31,18 +34,25 @@ class AuthRepositoryImpl(
                 displayName = credentials.displayName
             )
         )
-        return result.getOrNull()?.toDomain()
-            ?: error("Registration failed")
+        val session = result.getOrNull()?.toDomain() ?: error("Registration failed")
+        localSession.saveSession(session)
+        return session
     }
 
     override suspend fun signOut() {
-        // Token management added in MVP auth task
+        val token = localSession.getSession()?.accessToken ?: return
+        remoteDataSource.signOut(token)
+        localSession.clearSession()
     }
 
-    override suspend fun getCurrentSession(): AuthSession? = null // persisted in MVP auth task
+    override suspend fun getCurrentSession(): AuthSession? = localSession.getSession()
 
     override suspend fun refreshSession(): AuthSession? {
-        return null // implemented in MVP auth task
+        val refreshToken = localSession.getSession()?.refreshToken ?: return null
+        val result = remoteDataSource.refreshSession(refreshToken)
+        val session = result.getOrNull()?.toDomain() ?: return null
+        localSession.saveSession(session)
+        return session
     }
 
     private fun AuthSessionDto.toDomain() = AuthSession(

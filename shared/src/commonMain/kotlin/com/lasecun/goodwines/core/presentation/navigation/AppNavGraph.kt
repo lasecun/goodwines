@@ -5,6 +5,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
+import com.lasecun.goodwines.features.auth.presentation.screen.LoginScreen
+import com.lasecun.goodwines.features.auth.presentation.screen.RegisterScreen
 import com.lasecun.goodwines.features.journal.presentation.screen.JournalEntryScreen
 import com.lasecun.goodwines.features.journal.presentation.screen.JournalScreen
 import com.lasecun.goodwines.features.social.presentation.screen.ActivityFeedScreen
@@ -27,6 +29,22 @@ fun AppNavGraph(
         navController = navController,
         startDestination = startDestination
     ) {
+        composable<Route.Login> {
+            LoginScreen(
+                onNavigateToRegister = {
+                    navController.navigate(Route.Register)
+                }
+            )
+        }
+
+        composable<Route.Register> {
+            RegisterScreen(
+                onNavigateToLogin = {
+                    navController.popBackStack()
+                }
+            )
+        }
+
         composable<Route.WineList> {
             WineListScreen(
                 onWineClick = { wineId ->
