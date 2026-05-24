@@ -15,6 +15,7 @@ import com.lasecun.goodwines.features.social.presentation.screen.ActivityFeedScr
 import com.lasecun.goodwines.features.user.presentation.screen.UserProfileScreen
 import com.lasecun.goodwines.features.wine.presentation.screen.WineDetailScreen
 import com.lasecun.goodwines.features.wine.presentation.screen.WineListScreen
+import org.koin.compose.koinInject
 
 /**
  * Root navigation graph. Wires all feature screens to their typed routes.
