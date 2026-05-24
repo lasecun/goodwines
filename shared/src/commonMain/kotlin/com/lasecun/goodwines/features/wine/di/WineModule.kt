@@ -1,7 +1,9 @@
-// Wine feature DI module — wires WineRepository.
-// Filled in during the foundation-koin-di task (#3).
 package com.lasecun.goodwines.features.wine.di
 
-// val wineModule = module {
-//     single<WineRepository> { WineRepositoryImpl() }
-// }
+import com.lasecun.goodwines.features.wine.data.repository.WineRepositoryImpl
+import com.lasecun.goodwines.features.wine.domain.repository.WineRepository
+import org.koin.dsl.module
+
+val wineModule = module {
+    single<WineRepository> { WineRepositoryImpl() }
+}

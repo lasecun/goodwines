@@ -1,5 +1,7 @@
-// Core DI module — wires cross-feature dependencies.
-// Filled in during the foundation-koin-di task (#3).
 package com.lasecun.goodwines.core.di
 
-// val coreModule = module { }
+import org.koin.dsl.module
+
+val coreModule = module {
+    // Cross-feature bindings go here (e.g. analytics, logging, session)
+}
