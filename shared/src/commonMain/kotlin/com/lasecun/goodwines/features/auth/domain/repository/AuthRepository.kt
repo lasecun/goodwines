@@ -23,4 +23,7 @@ interface AuthRepository {
 
     /** Attempt to refresh the access token using the refresh token. */
     suspend fun refreshSession(): AuthSession?
+
+    /** Starts a local demo session for development/testing without backend auth. */
+    suspend fun startDemoSession(email: String): AuthSession
 }

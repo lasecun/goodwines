@@ -10,6 +10,7 @@ import com.lasecun.goodwines.features.auth.domain.usecase.GetCurrentSessionUseCa
 import com.lasecun.goodwines.features.auth.domain.usecase.RegisterUseCase
 import com.lasecun.goodwines.features.auth.domain.usecase.SignInUseCase
 import com.lasecun.goodwines.features.auth.domain.usecase.SignOutUseCase
+import com.lasecun.goodwines.features.auth.domain.usecase.StartDemoSessionUseCase
 import com.lasecun.goodwines.features.auth.presentation.viewmodel.AuthViewModel
 import org.koin.dsl.module
 
@@ -22,6 +23,7 @@ val authModule = module {
     factory { RegisterUseCase(get()) }
     factory { SignOutUseCase(get()) }
     factory { GetCurrentSessionUseCase(get()) }
+    factory { StartDemoSessionUseCase(get()) }
 
-    single { AuthViewModel(get(), get(), get(), get()) }
+    single { AuthViewModel(get(), get(), get(), get(), get()) }
 }
