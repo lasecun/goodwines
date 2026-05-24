@@ -3,8 +3,10 @@ package com.lasecun.goodwines.core.presentation.components
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
@@ -12,6 +14,36 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+
+/**
+ * Primary CTA button with optional loading state.
+ */
+@Composable
+fun GoodwinesButton(
+    text: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    isLoading: Boolean = false,
+    enabled: Boolean = true
+) {
+    Button(
+        onClick = onClick,
+        modifier = modifier.height(52.dp),
+        enabled = enabled && !isLoading,
+        shape = MaterialTheme.shapes.medium,
+        contentPadding = PaddingValues(horizontal = 24.dp)
+    ) {
+        if (isLoading) {
+            CircularProgressIndicator(
+                modifier = Modifier.size(20.dp),
+                strokeWidth = 2.dp,
+                color = MaterialTheme.colorScheme.onPrimary
+            )
+        } else {
+            Text(text = text, style = MaterialTheme.typography.labelLarge)
+        }
+    }
+}
 
 /**
  * Primary CTA button. Full-width, prominent wine-red fill.
