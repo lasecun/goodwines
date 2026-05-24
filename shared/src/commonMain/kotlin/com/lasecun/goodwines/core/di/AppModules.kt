@@ -9,6 +9,7 @@ import com.lasecun.goodwines.features.wine.di.wineModule
 // All Koin modules loaded at app startup.
 val appModules = listOf(
     coreModule,
+    syncModule,
     authModule,
     wineModule,
     journalModule,

@@ -8,5 +8,5 @@ import org.koin.dsl.module
 
 val journalModule = module {
     single<RemoteJournalDataSource> { RemoteJournalDataSourceImpl() }
-    single<TastingEntryRepository> { TastingEntryRepositoryImpl(get()) }
+    single<TastingEntryRepository> { TastingEntryRepositoryImpl(get(), get()) }
 }

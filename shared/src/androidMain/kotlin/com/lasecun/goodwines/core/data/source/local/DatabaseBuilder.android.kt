@@ -8,6 +8,8 @@ actual class DatabaseBuilder(private val context: Context) {
         return Room.databaseBuilder<GoodwinesDatabase>(
             context = context,
             name = "goodwines.db"
-        ).build()
+        )
+            .addMigrations(MIGRATION_1_2)
+            .build()
     }
 }

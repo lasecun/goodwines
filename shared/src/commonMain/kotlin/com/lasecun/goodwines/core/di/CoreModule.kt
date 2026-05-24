@@ -11,6 +11,7 @@ val coreModule = module {
     single { get<DatabaseBuilder>().build() }
     single { get<com.lasecun.goodwines.core.data.source.local.GoodwinesDatabase>().wineDao() }
     single { get<com.lasecun.goodwines.core.data.source.local.GoodwinesDatabase>().tastingEntryDao() }
+    single { get<com.lasecun.goodwines.core.data.source.local.GoodwinesDatabase>().syncQueueDao() }
     single<LocalWineDataSource> { WineLocalDataSourceImpl(get()) }
     single<LocalTastingEntryDataSource> { TastingEntryLocalDataSourceImpl(get()) }
 }
