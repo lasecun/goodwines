@@ -5,5 +5,5 @@ import com.lasecun.goodwines.features.wine.domain.repository.WineRepository
 import org.koin.dsl.module
 
 val wineModule = module {
-    single<WineRepository> { WineRepositoryImpl() }
+    single<WineRepository> { WineRepositoryImpl(get()) }
 }

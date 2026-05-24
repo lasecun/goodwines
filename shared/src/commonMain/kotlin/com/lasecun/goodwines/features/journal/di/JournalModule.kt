@@ -5,5 +5,5 @@ import com.lasecun.goodwines.features.journal.domain.repository.TastingEntryRepo
 import org.koin.dsl.module
 
 val journalModule = module {
-    single<TastingEntryRepository> { TastingEntryRepositoryImpl() }
+    single<TastingEntryRepository> { TastingEntryRepositoryImpl(get()) }
 }
