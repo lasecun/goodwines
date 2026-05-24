@@ -51,6 +51,9 @@ fun AppNavGraph(
             WineListScreen(
                 onWineClick = { wineId ->
                     navController.navigate(Route.WineDetail(wineId))
+                },
+                onProfileClick = {
+                    navController.navigate(Route.UserProfile)
                 }
             )
         }
