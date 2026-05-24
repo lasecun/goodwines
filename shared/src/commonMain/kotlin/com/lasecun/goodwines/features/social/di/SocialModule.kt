@@ -1,7 +1,12 @@
 package com.lasecun.goodwines.features.social.di
 
+import com.lasecun.goodwines.features.social.data.repository.SocialRepositoryImpl
+import com.lasecun.goodwines.features.social.data.source.remote.RemoteSocialDataSource
+import com.lasecun.goodwines.features.social.data.source.remote.RemoteSocialDataSourceImpl
+import com.lasecun.goodwines.features.social.domain.repository.SocialRepository
 import org.koin.dsl.module
 
 val socialModule = module {
-    // Social repositories wired here once data layer is implemented
+    single<RemoteSocialDataSource> { RemoteSocialDataSourceImpl() }
+    single<SocialRepository> { SocialRepositoryImpl(get()) }
 }
