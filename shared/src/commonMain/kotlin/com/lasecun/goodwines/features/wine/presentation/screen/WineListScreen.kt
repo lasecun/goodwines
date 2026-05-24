@@ -16,13 +16,17 @@ import androidx.compose.ui.Modifier
 @Composable
 fun WineListScreen(
     onWineClick: (wineId: String) -> Unit = {},
-    onProfileClick: () -> Unit = {}
+    onProfileClick: () -> Unit = {},
+    onFeedClick: () -> Unit = {}
 ) {
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text("Wine List") },
                 actions = {
+                    TextButton(onClick = onFeedClick) {
+                        Text("Feed", style = MaterialTheme.typography.labelLarge)
+                    }
                     TextButton(onClick = onProfileClick) {
                         Text("Profile", style = MaterialTheme.typography.labelLarge)
                     }
