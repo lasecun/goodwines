@@ -7,6 +7,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.lasecun.goodwines.features.auth.presentation.screen.LoginScreen
 import com.lasecun.goodwines.features.auth.presentation.screen.RegisterScreen
+import com.lasecun.goodwines.features.journal.presentation.screen.AddJournalEntryScreen
 import com.lasecun.goodwines.features.journal.presentation.screen.JournalEntryScreen
 import com.lasecun.goodwines.features.journal.presentation.screen.JournalScreen
 import com.lasecun.goodwines.features.social.presentation.screen.ActivityFeedScreen
@@ -65,6 +66,9 @@ fun AppNavGraph(
             JournalScreen(
                 onEntryClick = { entryId ->
                     navController.navigate(Route.JournalEntry(entryId))
+                },
+                onAddEntry = {
+                    navController.navigate(Route.AddJournalEntry())
                 }
             )
         }
@@ -73,7 +77,19 @@ fun AppNavGraph(
             val route = backStackEntry.toRoute<Route.JournalEntry>()
             JournalEntryScreen(
                 entryId = route.entryId,
-                onBack = { navController.popBackStack() }
+                onBack = { navController.popBackStack() },
+                onEdit = { entryId ->
+                    navController.navigate(Route.AddJournalEntry(entryId))
+                }
+            )
+        }
+
+        composable<Route.AddJournalEntry> { backStackEntry ->
+            val route = backStackEntry.toRoute<Route.AddJournalEntry>()
+            AddJournalEntryScreen(
+                entryId = route.entryId.ifBlank { null },
+                onBack = { navController.popBackStack() },
+                onSaved = { navController.popBackStack() }
             )
         }
 
