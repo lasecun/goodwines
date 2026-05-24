@@ -41,3 +41,37 @@ fun GoodwinesEmptyState(
         )
     }
 }
+
+/**
+ * Full-screen error state with an optional retry action.
+ */
+@Composable
+fun GoodwinesErrorView(
+    message: String,
+    modifier: Modifier = Modifier,
+    onRetry: (() -> Unit)? = null
+) {
+    Box(
+        modifier = modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        androidx.compose.foundation.layout.Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = androidx.compose.foundation.layout.Arrangement.Center
+        ) {
+            Text(
+                text = message,
+                style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.error
+            )
+            if (onRetry != null) {
+                androidx.compose.foundation.layout.Spacer(
+                    modifier = Modifier.then(Modifier).also { /* 8dp */ }
+                )
+                androidx.compose.material3.TextButton(onClick = onRetry) {
+                    Text("Retry")
+                }
+            }
+        }
+    }
+}

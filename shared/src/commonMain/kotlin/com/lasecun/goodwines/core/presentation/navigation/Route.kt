@@ -26,6 +26,10 @@ sealed interface Route {
     @Serializable
     data class JournalEntry(val entryId: String) : Route
 
+    /** Create a new tasting entry. When [entryId] is non-blank an existing entry is edited. */
+    @Serializable
+    data class AddJournalEntry(val entryId: String = "") : Route
+
     @Serializable
     data object UserProfile : Route
 
