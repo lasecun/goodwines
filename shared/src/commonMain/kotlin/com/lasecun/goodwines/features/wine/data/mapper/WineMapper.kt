@@ -14,7 +14,9 @@ fun WineEntity.toDomain(): Wine = Wine(
     grapes = grapes.split(",").filter { it.isNotEmpty() },
     style = runCatching { WineStyle.valueOf(style) }.getOrDefault(WineStyle.RED),
     imageUrl = imageUrl,
-    averageRating = averageRating
+    averageRating = averageRating,
+    abv = abv,
+    description = description
 )
 
 fun Wine.toEntity(): WineEntity = WineEntity(
@@ -27,5 +29,7 @@ fun Wine.toEntity(): WineEntity = WineEntity(
     grapes = grapes.joinToString(","),
     style = style.name,
     imageUrl = imageUrl,
-    averageRating = averageRating
+    averageRating = averageRating,
+    abv = abv,
+    description = description
 )

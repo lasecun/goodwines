@@ -63,7 +63,8 @@ class AuthRepositoryImpl(
             email = normalizedEmail,
             accessToken = "demo-access-token",
             refreshToken = null,
-            expiresAt = null
+            expiresAt = null,
+            isDemo = true
         )
         localSession.saveSession(demoSession)
         return demoSession

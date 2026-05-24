@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "27d8f463317976e62fb47f68e4f0402e",
+    "identityHash": "dd9d7dfadb27b66735fe82f67cf6ca8a",
     "entities": [
       {
         "tableName": "wines",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `name` TEXT NOT NULL, `winery` TEXT NOT NULL, `vintage` INTEGER, `region` TEXT NOT NULL, `country` TEXT NOT NULL, `grapes` TEXT NOT NULL, `style` TEXT NOT NULL, `imageUrl` TEXT, `averageRating` REAL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `name` TEXT NOT NULL, `winery` TEXT NOT NULL, `vintage` INTEGER, `region` TEXT NOT NULL, `country` TEXT NOT NULL, `grapes` TEXT NOT NULL, `style` TEXT NOT NULL, `imageUrl` TEXT, `averageRating` REAL, `abv` REAL, `description` TEXT NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -64,6 +64,17 @@
             "fieldPath": "averageRating",
             "columnName": "averageRating",
             "affinity": "REAL"
+          },
+          {
+            "fieldPath": "abv",
+            "columnName": "abv",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -261,7 +272,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '27d8f463317976e62fb47f68e4f0402e')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'dd9d7dfadb27b66735fe82f67cf6ca8a')"
     ]
   }
 }

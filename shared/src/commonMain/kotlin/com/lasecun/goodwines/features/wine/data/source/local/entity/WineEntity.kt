@@ -14,5 +14,7 @@ data class WineEntity(
     val grapes: String,         // comma-separated list
     val style: String,          // WineStyle.name
     val imageUrl: String?,
-    val averageRating: Float?
+    val averageRating: Float?,
+    val abv: Float?,
+    val description: String
 )

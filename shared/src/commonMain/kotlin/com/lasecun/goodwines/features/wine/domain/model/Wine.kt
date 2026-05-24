@@ -10,7 +10,9 @@ data class Wine(
     val grapes: List<String> = emptyList(),
     val style: WineStyle = WineStyle.RED,
     val imageUrl: String? = null,
-    val averageRating: Float? = null
+    val averageRating: Float? = null,
+    val abv: Float? = null,
+    val description: String = ""
 )
 
 enum class WineStyle {

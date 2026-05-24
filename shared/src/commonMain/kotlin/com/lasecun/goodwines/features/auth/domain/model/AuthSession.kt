@@ -10,5 +10,6 @@ data class AuthSession(
     val email: String,
     val accessToken: String,
     val refreshToken: String?,
-    val expiresAt: Long?   // epoch millis; null = no expiry info
+    val expiresAt: Long?,   // epoch millis; null = no expiry info
+    val isDemo: Boolean = false
 )
