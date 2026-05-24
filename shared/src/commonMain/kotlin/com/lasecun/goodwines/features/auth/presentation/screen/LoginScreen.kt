@@ -3,6 +3,7 @@ package com.lasecun.goodwines.features.auth.presentation.screen
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -42,6 +44,7 @@ fun LoginScreen(
 
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var useDemoLogin by remember { mutableStateOf(false) }
     val focusManager = LocalFocusManager.current
 
     Box(
@@ -103,11 +106,25 @@ fun LoginScreen(
                 keyboardActions = KeyboardActions(
                     onDone = {
                         focusManager.clearFocus()
-                        viewModel.signIn(email, password)
+                        viewModel.signIn(email, password, useDemoLogin)
                     }
                 ),
                 isError = formState is LoginFormState.Error
             )
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Checkbox(
+                    checked = useDemoLogin,
+                    onCheckedChange = { useDemoLogin = it }
+                )
+                Text(
+                    text = "Demo login (sin backend)",
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            }
 
             if (formState is LoginFormState.Error) {
                 Text(
@@ -119,7 +136,7 @@ fun LoginScreen(
 
             GoodwinesButton(
                 text = "Sign In",
-                onClick = { viewModel.signIn(email, password) },
+                onClick = { viewModel.signIn(email, password, useDemoLogin) },
                 isLoading = formState is LoginFormState.Loading,
                 modifier = Modifier.fillMaxWidth()
             )

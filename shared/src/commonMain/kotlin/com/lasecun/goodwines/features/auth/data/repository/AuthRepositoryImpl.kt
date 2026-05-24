@@ -10,6 +10,7 @@ import com.lasecun.goodwines.features.auth.domain.model.AuthCredentials
 import com.lasecun.goodwines.features.auth.domain.model.AuthSession
 import com.lasecun.goodwines.features.auth.domain.model.RegisterCredentials
 import com.lasecun.goodwines.features.auth.domain.repository.AuthRepository
+import com.lasecun.goodwines.core.platform.randomUuid
 
 class AuthRepositoryImpl(
     private val remoteDataSource: RemoteAuthDataSource,
@@ -53,6 +54,19 @@ class AuthRepositoryImpl(
         val session = result.getOrNull()?.toDomain() ?: return null
         localSession.saveSession(session)
         return session
+    }
+
+    override suspend fun startDemoSession(email: String): AuthSession {
+        val normalizedEmail = email.trim().ifBlank { "demo@goodwines.app" }
+        val demoSession = AuthSession(
+            userId = "demo-${randomUuid()}",
+            email = normalizedEmail,
+            accessToken = "demo-access-token",
+            refreshToken = null,
+            expiresAt = null
+        )
+        localSession.saveSession(demoSession)
+        return demoSession
     }
 
     private fun AuthSessionDto.toDomain() = AuthSession(

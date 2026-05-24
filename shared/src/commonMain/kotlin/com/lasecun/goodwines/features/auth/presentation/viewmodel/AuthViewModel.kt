@@ -4,6 +4,7 @@ import com.lasecun.goodwines.features.auth.domain.usecase.GetCurrentSessionUseCa
 import com.lasecun.goodwines.features.auth.domain.usecase.RegisterUseCase
 import com.lasecun.goodwines.features.auth.domain.usecase.SignInUseCase
 import com.lasecun.goodwines.features.auth.domain.usecase.SignOutUseCase
+import com.lasecun.goodwines.features.auth.domain.usecase.StartDemoSessionUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -20,7 +21,8 @@ class AuthViewModel(
     private val signInUseCase: SignInUseCase,
     private val registerUseCase: RegisterUseCase,
     private val signOutUseCase: SignOutUseCase,
-    private val getCurrentSessionUseCase: GetCurrentSessionUseCase
+    private val getCurrentSessionUseCase: GetCurrentSessionUseCase,
+    private val startDemoSessionUseCase: StartDemoSessionUseCase
 ) {
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
 
@@ -49,10 +51,16 @@ class AuthViewModel(
         }
     }
 
-    fun signIn(email: String, password: String) {
+    fun signIn(email: String, password: String, useDemoLogin: Boolean = false) {
         scope.launch {
             _loginForm.value = LoginFormState.Loading
-            signInUseCase(email, password)
+            val authResult = if (useDemoLogin) {
+                startDemoSessionUseCase(email)
+            } else {
+                signInUseCase(email, password)
+            }
+
+            authResult
                 .onSuccess { session ->
                     _loginForm.value = LoginFormState.Idle
                     _authState.value = AuthUiState.LoggedIn(session)
