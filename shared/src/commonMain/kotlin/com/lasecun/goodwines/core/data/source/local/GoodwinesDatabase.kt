@@ -4,7 +4,9 @@ import androidx.room.ConstructedBy
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.RoomDatabaseConstructor
+import com.lasecun.goodwines.features.journal.data.source.local.dao.SyncQueueDao
 import com.lasecun.goodwines.features.journal.data.source.local.dao.TastingEntryDao
+import com.lasecun.goodwines.features.journal.data.source.local.entity.SyncQueueEntity
 import com.lasecun.goodwines.features.journal.data.source.local.entity.TastingEntryEntity
 import com.lasecun.goodwines.features.wine.data.source.local.dao.WineDao
 import com.lasecun.goodwines.features.wine.data.source.local.entity.WineEntity
@@ -16,11 +18,12 @@ expect object GoodwinesDatabaseConstructor : RoomDatabaseConstructor<GoodwinesDa
 }
 
 @Database(
-    entities = [WineEntity::class, TastingEntryEntity::class],
-    version = 1
+    entities = [WineEntity::class, TastingEntryEntity::class, SyncQueueEntity::class],
+    version = 2
 )
 @ConstructedBy(GoodwinesDatabaseConstructor::class)
 abstract class GoodwinesDatabase : RoomDatabase() {
     abstract fun wineDao(): WineDao
     abstract fun tastingEntryDao(): TastingEntryDao
+    abstract fun syncQueueDao(): SyncQueueDao
 }

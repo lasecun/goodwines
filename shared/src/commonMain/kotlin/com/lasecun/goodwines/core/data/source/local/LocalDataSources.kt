@@ -12,6 +12,10 @@ interface LocalWineDataSource {
 
 interface LocalTastingEntryDataSource {
     suspend fun getEntriesByUser(userId: String): List<TastingEntry>
+    suspend fun getEntryById(id: String): TastingEntry?
+    suspend fun getDrafts(userId: String): List<TastingEntry>
+    suspend fun getPendingSync(userId: String): List<TastingEntry>
     suspend fun insertEntry(entry: TastingEntry)
+    suspend fun updateSyncStatus(id: String, status: String, serverId: String? = null)
     suspend fun deleteEntry(id: String)
 }

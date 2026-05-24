@@ -6,6 +6,11 @@ import androidx.room.PrimaryKey
 /**
  * Stores a tasting entry with a denormalized wine snapshot.
  * This preserves the wine as it was at tasting time, decoupled from the catalog.
+ *
+ * Sync fields:
+ *  - [syncStatus] tracks whether this record needs to be pushed to the backend.
+ *  - [localModifiedAt] is updated on every local write so the sync layer can order operations.
+ *  - [serverId] is populated after a successful upload; may differ from the local [id] (UUID).
  */
 @Entity(tableName = "tasting_entries")
 data class TastingEntryEntity(
@@ -28,5 +33,9 @@ data class TastingEntryEntity(
     val location: String?,
     val foodPairing: String?,
     val mood: String?,
-    val isPublic: Boolean
+    val isPublic: Boolean,
+    // Sync fields (added in DB version 2)
+    val syncStatus: String = "SYNCED",   // SyncStatus.name
+    val localModifiedAt: Long = 0L,
+    val serverId: String? = null
 )

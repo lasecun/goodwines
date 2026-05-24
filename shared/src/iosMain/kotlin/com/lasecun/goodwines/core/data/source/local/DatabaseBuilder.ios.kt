@@ -10,7 +10,9 @@ actual class DatabaseBuilder {
     actual fun build(): GoodwinesDatabase {
         return Room.databaseBuilder<GoodwinesDatabase>(
             name = documentDirectory() + "/goodwines.db"
-        ).build()
+        )
+            .addMigrations(MIGRATION_1_2)
+            .build()
     }
 
     @OptIn(ExperimentalForeignApi::class)
