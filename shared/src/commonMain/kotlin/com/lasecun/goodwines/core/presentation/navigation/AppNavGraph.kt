@@ -10,6 +10,7 @@ import com.lasecun.goodwines.features.auth.presentation.screen.RegisterScreen
 import com.lasecun.goodwines.features.journal.presentation.screen.AddJournalEntryScreen
 import com.lasecun.goodwines.features.journal.presentation.screen.JournalEntryScreen
 import com.lasecun.goodwines.features.journal.presentation.screen.JournalScreen
+import com.lasecun.goodwines.features.scanner.presentation.screen.ScannerScreen
 import com.lasecun.goodwines.features.social.presentation.screen.ActivityFeedScreen
 import com.lasecun.goodwines.features.user.presentation.screen.UserProfileScreen
 import com.lasecun.goodwines.features.wine.presentation.screen.WineDetailScreen
@@ -69,6 +70,9 @@ fun AppNavGraph(
                 },
                 onAddEntry = {
                     navController.navigate(Route.AddJournalEntry())
+                },
+                onScanWine = {
+                    navController.navigate(Route.Scanner)
                 }
             )
         }
@@ -79,7 +83,7 @@ fun AppNavGraph(
                 entryId = route.entryId,
                 onBack = { navController.popBackStack() },
                 onEdit = { entryId ->
-                    navController.navigate(Route.AddJournalEntry(entryId))
+                    navController.navigate(Route.AddJournalEntry(entryId = entryId))
                 }
             )
         }
@@ -88,8 +92,24 @@ fun AppNavGraph(
             val route = backStackEntry.toRoute<Route.AddJournalEntry>()
             AddJournalEntryScreen(
                 entryId = route.entryId.ifBlank { null },
+                prefillWineName = route.prefillWineName,
+                prefillWineWinery = route.prefillWineWinery,
                 onBack = { navController.popBackStack() },
                 onSaved = { navController.popBackStack() }
+            )
+        }
+
+        composable<Route.Scanner> {
+            ScannerScreen(
+                onBack = { navController.popBackStack() },
+                onScanComplete = { wineName, winery ->
+                    navController.navigate(
+                        Route.AddJournalEntry(
+                            prefillWineName = wineName,
+                            prefillWineWinery = winery
+                        )
+                    )
+                }
             )
         }
 

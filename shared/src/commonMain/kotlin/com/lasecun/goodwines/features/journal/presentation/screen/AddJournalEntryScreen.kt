@@ -53,11 +53,21 @@ import org.koin.core.parameter.parametersOf
 @Composable
 fun AddJournalEntryScreen(
     entryId: String? = null,
+    prefillWineName: String = "",
+    prefillWineWinery: String = "",
     onBack: () -> Unit = {},
     onSaved: () -> Unit = {}
 ) {
     val viewModel: JournalEntryViewModel = koinInject { parametersOf(entryId?.ifBlank { null }) }
     val formState by viewModel.formState.collectAsState()
+
+    // Apply scanner pre-fill for new entries (entryId is null)
+    LaunchedEffect(prefillWineName, prefillWineWinery) {
+        if (entryId.isNullOrBlank()) {
+            if (prefillWineName.isNotBlank()) viewModel.updateWineName(prefillWineName)
+            if (prefillWineWinery.isNotBlank()) viewModel.updateWineWinery(prefillWineWinery)
+        }
+    }
     val snackbarHostState = remember { SnackbarHostState() }
 
     // Navigate back once saved

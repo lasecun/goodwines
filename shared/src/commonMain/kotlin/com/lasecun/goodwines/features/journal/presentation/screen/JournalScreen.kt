@@ -38,14 +38,22 @@ import org.koin.compose.koinInject
 @Composable
 fun JournalScreen(
     onEntryClick: (entryId: String) -> Unit = {},
-    onAddEntry: () -> Unit = {}
+    onAddEntry: () -> Unit = {},
+    onScanWine: () -> Unit = {}
 ) {
     val viewModel: JournalViewModel = koinInject()
     val state by viewModel.state.collectAsState()
 
     Scaffold(
         topBar = {
-            TopAppBar(title = { Text("My Wine Journal") })
+            TopAppBar(
+                title = { Text("My Wine Journal") },
+                actions = {
+                    androidx.compose.material3.TextButton(onClick = onScanWine) {
+                        Text("📷", style = MaterialTheme.typography.titleMedium)
+                    }
+                }
+            )
         },
         floatingActionButton = {
             FloatingActionButton(onClick = onAddEntry) {

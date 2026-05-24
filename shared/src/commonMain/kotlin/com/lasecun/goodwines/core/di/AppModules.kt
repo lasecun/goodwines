@@ -2,6 +2,7 @@ package com.lasecun.goodwines.core.di
 
 import com.lasecun.goodwines.features.auth.di.authModule
 import com.lasecun.goodwines.features.journal.di.journalModule
+import com.lasecun.goodwines.features.scanner.di.scannerModule
 import com.lasecun.goodwines.features.social.di.socialModule
 import com.lasecun.goodwines.features.user.di.userModule
 import com.lasecun.goodwines.features.wine.di.wineModule
@@ -13,6 +14,7 @@ val appModules = listOf(
     authModule,
     wineModule,
     journalModule,
+    scannerModule,
     userModule,
     socialModule
 )
