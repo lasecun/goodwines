@@ -1,0 +1,197 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "f21193210950f362fe9eef8b837d0741",
+    "entities": [
+      {
+        "tableName": "wines",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `name` TEXT NOT NULL, `winery` TEXT NOT NULL, `vintage` INTEGER, `region` TEXT NOT NULL, `country` TEXT NOT NULL, `grapes` TEXT NOT NULL, `style` TEXT NOT NULL, `imageUrl` TEXT, `averageRating` REAL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "winery",
+            "columnName": "winery",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "vintage",
+            "columnName": "vintage",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "region",
+            "columnName": "region",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "country",
+            "columnName": "country",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "grapes",
+            "columnName": "grapes",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "style",
+            "columnName": "style",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "imageUrl",
+            "columnName": "imageUrl",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "averageRating",
+            "columnName": "averageRating",
+            "affinity": "REAL"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        }
+      },
+      {
+        "tableName": "tasting_entries",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `userId` TEXT NOT NULL, `wineId` TEXT NOT NULL, `wineName` TEXT NOT NULL, `wineWinery` TEXT NOT NULL, `wineVintage` INTEGER, `wineRegion` TEXT NOT NULL, `wineCountry` TEXT NOT NULL, `wineGrapes` TEXT NOT NULL, `wineStyle` TEXT NOT NULL, `wineImageUrl` TEXT, `rating` REAL NOT NULL, `notes` TEXT NOT NULL, `date` INTEGER NOT NULL, `location` TEXT, `foodPairing` TEXT, `mood` TEXT, `isPublic` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "userId",
+            "columnName": "userId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "wineId",
+            "columnName": "wineId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "wineName",
+            "columnName": "wineName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "wineWinery",
+            "columnName": "wineWinery",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "wineVintage",
+            "columnName": "wineVintage",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "wineRegion",
+            "columnName": "wineRegion",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "wineCountry",
+            "columnName": "wineCountry",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "wineGrapes",
+            "columnName": "wineGrapes",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "wineStyle",
+            "columnName": "wineStyle",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "wineImageUrl",
+            "columnName": "wineImageUrl",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "rating",
+            "columnName": "rating",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "notes",
+            "columnName": "notes",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "date",
+            "columnName": "date",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "location",
+            "columnName": "location",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "foodPairing",
+            "columnName": "foodPairing",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "mood",
+            "columnName": "mood",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "isPublic",
+            "columnName": "isPublic",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        }
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f21193210950f362fe9eef8b837d0741')"
+    ]
+  }
+}
